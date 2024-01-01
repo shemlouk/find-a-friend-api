@@ -1,0 +1,23 @@
+import { Org } from '@core/domain/entities/org';
+import { OrgRepository } from '@core/domain/repositories/org-repository';
+
+export class OrgInMemoryRepository implements OrgRepository {
+  readonly orgs: Org[];
+
+  constructor() {
+    this.orgs = [];
+  }
+
+  async create(org: Org) {
+    this.orgs.push(org);
+    return org;
+  }
+
+  async findByEmail(email: string) {
+    return this.orgs.find((o) => o.toObject().contact.email === email);
+  }
+
+  async findByPhone(phone: string) {
+    return this.orgs.find((o) => o.toObject().contact.phone === phone);
+  }
+}
