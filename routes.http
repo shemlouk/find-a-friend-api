@@ -1,0 +1,10 @@
+POST http://localhost:3000/org/
+Content-Type: application/json
+
+{
+  "name" : "samuel",
+  "email" : "samuel@gmail.com",
+  "password" : "samuel123456",
+  "cep" : "06445140",
+  "phone" : "11944685351"
+}

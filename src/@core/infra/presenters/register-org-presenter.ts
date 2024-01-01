@@ -1,17 +1,13 @@
 import { OutputBoundary } from '@core/application/use-cases/register-org';
 
 export class RegisterOrgPresenter {
-  constructor(private data: OutputBoundary) {}
-
-  http() {
-    const { org } = this.data;
-
+  http({ org }: OutputBoundary) {
     const { cep, completeAddress } = org.address;
 
     const formatedCep = cep.slice(0, -3) + '-' + cep.slice(-3);
 
     const [s, n, ...rest] = completeAddress.split(',');
-    const formatedAddress = [s, n].join(', ') + ' - ' + rest.join(', ') + '.';
+    const formatedAddress = [s, n].join(',') + '-' + rest.join(',') + '.';
 
     return Object.freeze({
       org: {
