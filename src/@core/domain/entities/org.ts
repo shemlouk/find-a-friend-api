@@ -28,6 +28,7 @@ export class Org extends Entity {
       name: this.name,
       contact: { ...this._contact },
       address: { ...this._address },
+      hashedPassword: this._password.hash,
     });
   }
 }

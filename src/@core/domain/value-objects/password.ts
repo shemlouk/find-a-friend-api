@@ -6,6 +6,7 @@ export class Password {
   #hashedPassword: string;
 
   constructor(password: string) {
+    // eslint-disable-next-line
     const [_, tag] = password.split('.');
 
     tag === 'h'
@@ -20,5 +21,9 @@ export class Password {
 
   compare(value: string) {
     return Password.hash(value) === this.#hashedPassword;
+  }
+
+  get hash() {
+    return this.#hashedPassword;
   }
 }
