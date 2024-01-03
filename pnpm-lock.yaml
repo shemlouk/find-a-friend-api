@@ -23,6 +23,9 @@ dependencies:
   class-validator:
     specifier: ^0.14.0
     version: 0.14.0
+  jose:
+    specifier: ^5.2.0
+    version: 5.2.0
   reflect-metadata:
     specifier: ^0.1.13
     version: 0.1.14
@@ -3671,6 +3674,10 @@ packages:
       - supports-color
       - ts-node
     dev: true
+
+  /jose@5.2.0:
+    resolution: {integrity: sha512-oW3PCnvyrcm1HMvGTzqjxxfnEs9EoFOFWi2HsEGhlFVOXxTE3K9GKWVMFoFw06yPUqwpvEWic1BmtUZBI/tIjw==}
+    dev: false
 
   /js-tokens@4.0.0:
     resolution: {integrity: sha512-RdJUflcE3cUzKiMqQgsCu06FPu9UdIJO0beYbPhHN4k6apgJtifcoCtT9bcxOpYBtpD2kCM6Sbzg4CausW/PKQ==}

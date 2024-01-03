@@ -8,3 +8,13 @@ Content-Type: application/json
   "cep" : "06445140",
   "phone" : "11944685351"
 }
+
+###
+
+POST http://localhost:3000/org/authenticate
+Content-Type: application/json
+
+{
+  "email" : "samuel@gmail.com",
+  "password" : "samuel123456"
+}

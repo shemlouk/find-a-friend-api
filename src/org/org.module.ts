@@ -1,3 +1,6 @@
+import { Jwt } from '@/@core/application/contracts/jwt';
+import { AuthenticateOrg } from '@/@core/application/use-cases/authenticate-org';
+import { JoseJwt } from '@/@core/infra/adapters/jose-jwt';
 import { PrismaService } from '@/prisma.service';
 import { CepApi } from '@core/application/contracts/cep-api';
 import { RegisterOrg } from '@core/application/use-cases/register-org';
@@ -18,12 +21,20 @@ import { OrgService } from './org.service';
     { provide: RegisterOrgPresenter, useClass: RegisterOrgPresenter },
     { provide: ViaCepApiAdapter, useClass: ViaCepApiAdapter },
     { provide: PrismaService, useClass: PrismaService },
+    { provide: JoseJwt, useClass: JoseJwt },
     {
       provide: RegisterOrg,
       useFactory: (orgRepository: OrgRepository, cepApi: CepApi) => {
         return new RegisterOrg(orgRepository, cepApi);
       },
       inject: [OrgPrismaRepository, ViaCepApiAdapter],
+    },
+    {
+      provide: AuthenticateOrg,
+      useFactory: (orgRepository: OrgRepository, jwt: Jwt<{ sub: string }>) => {
+        return new AuthenticateOrg(orgRepository, jwt);
+      },
+      inject: [OrgPrismaRepository, JoseJwt],
     },
     {
       provide: OrgPrismaRepository,
