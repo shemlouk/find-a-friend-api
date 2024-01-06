@@ -37,6 +37,7 @@ interface InputBoundary {
   energyLevel: EnergyLevel;
   spaceRequirement: SpaceRequirement;
   adoptionRequirements: string[];
+  isAdopted: boolean;
 }
 
 export interface OutputBoundary {
@@ -48,6 +49,7 @@ export interface OutputBoundary {
     size: Size;
     energyLevel: EnergyLevel;
     spaceRequirement: SpaceRequirement;
+    isAdopted: boolean;
     adoptionRequirements: string[];
   };
   org: {

@@ -11,6 +11,7 @@ export class Pet extends Entity {
     size: Size;
     energyLevel: EnergyLevel;
     spaceRequirement: SpaceRequirement;
+    isAdopted: boolean;
   };
 
   private _adoptionRequirements: Set<string>;
@@ -105,6 +106,7 @@ interface PetProps {
   energyLevel: EnergyLevel;
   spaceRequirement: SpaceRequirement;
   adoptionRequirements: string[];
+  isAdopted: boolean;
 }
 
 export enum Size {
