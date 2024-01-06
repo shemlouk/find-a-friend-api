@@ -1,10 +1,10 @@
-import { Jwt } from '@/@core/application/contracts/jwt';
-import { AuthenticateOrg } from '@/@core/application/use-cases/authenticate-org';
-import { JoseJwt } from '@/@core/infra/adapters/jose-jwt';
 import { PrismaService } from '@/prisma.service';
 import { CepApi } from '@core/application/contracts/cep-api';
+import { Jwt } from '@core/application/contracts/jwt';
+import { AuthenticateOrg } from '@core/application/use-cases/authenticate-org';
 import { RegisterOrg } from '@core/application/use-cases/register-org';
 import { OrgRepository } from '@core/domain/repositories/org-repository';
+import { JoseJwt } from '@core/infra/adapters/jose-jwt';
 import { ViaCepApiAdapter } from '@core/infra/adapters/via-cep-api-adapter';
 import { RegisterOrgPresenter } from '@core/infra/presenters/register-org-presenter';
 import { OrgInMemoryRepository } from '@core/infra/repositories/in-memory/org-in-memory-repository';

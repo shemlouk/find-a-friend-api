@@ -13,6 +13,10 @@ export class OrgInMemoryRepository implements OrgRepository {
     return org;
   }
 
+  async findById(orgId: string) {
+    return this.orgs.find((org) => org.id === orgId);
+  }
+
   async findByEmail(email: string) {
     return this.orgs.find((o) => o.toObject().contact.email === email);
   }
