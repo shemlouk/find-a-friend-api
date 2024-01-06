@@ -19,6 +19,23 @@ model Org {
   cep             String
   city            String
   completeAddress String @map("complete_address")
+  Pet             Pet[]
 
   @@map("orgs")
+}
+
+model Pet {
+  id                   String  @id @default(uuid())
+  name                 String
+  description          String
+  size                 String
+  energyLevel          String  @map("energy_level")
+  spaceRequirement     String  @map("space_requirement")
+  adoptionRequirements String  @map("adoption_requitements")
+  isAdopted            Boolean @map("is_adopted")
+
+  Org   Org    @relation(fields: [orgId], references: [id])
+  orgId String
+
+  @@map("pets")
 }
