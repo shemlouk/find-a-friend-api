@@ -1,7 +1,9 @@
 import { PrismaService } from '@/prisma.service';
+import { GetPetsByCity } from '@core/application/use-cases/get-pets-by-city';
 import { RegisterPet } from '@core/application/use-cases/register-pet';
 import { OrgRepository } from '@core/domain/repositories/org-repository';
 import { PetRepository } from '@core/domain/repositories/pet-repository';
+import { GetPetsByCityPresenter } from '@core/infra/presenters/get-pets-by-city-presenter';
 import { RegisterPetPresenter } from '@core/infra/presenters/register-pet-presenter';
 import { OrgPrismaRepository } from '@core/infra/repositories/prisma/org-prisma-repository';
 import { PetPrismaRepository } from '@core/infra/repositories/prisma/pet-prisma-repository';
@@ -14,6 +16,7 @@ import { PetService } from './pet.service';
   providers: [
     { provide: PrismaService, useClass: PrismaService },
     { provide: RegisterPetPresenter, useClass: RegisterPetPresenter },
+    { provide: GetPetsByCityPresenter, useClass: GetPetsByCityPresenter },
     {
       provide: OrgPrismaRepository,
       useFactory: (prisma: PrismaService) => new OrgPrismaRepository(prisma),
@@ -26,8 +29,21 @@ import { PetService } from './pet.service';
     },
     {
       provide: RegisterPet,
-      useFactory: (petRepo: PetRepository, orgRepo: OrgRepository) => {
-        return new RegisterPet(petRepo, orgRepo);
+      useFactory: (
+        petRepository: PetRepository,
+        orgRepository: OrgRepository,
+      ) => {
+        return new RegisterPet(petRepository, orgRepository);
+      },
+      inject: [PetPrismaRepository, OrgPrismaRepository],
+    },
+    {
+      provide: GetPetsByCity,
+      useFactory: (
+        petRepository: PetRepository,
+        orgRepository: OrgRepository,
+      ) => {
+        return new GetPetsByCity(petRepository, orgRepository);
       },
       inject: [PetPrismaRepository, OrgPrismaRepository],
     },

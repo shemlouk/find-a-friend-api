@@ -59,4 +59,16 @@ export class OrgPrismaRepository implements OrgRepository {
       )
     );
   }
+
+  async findManyByCity(city: string) {
+    const data = await this.prisma.org.findMany({ where: { city } });
+
+    return data.map(
+      (d) =>
+        new Org(
+          { ...d, phone: d.phoneNumber, password: d.hashedPassword },
+          d.id,
+        ),
+    );
+  }
 }

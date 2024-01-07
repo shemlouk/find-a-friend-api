@@ -4,10 +4,12 @@ import {
   Size,
   SpaceRequirement,
 } from '@core/domain/entities/pet';
-import { PetRepository } from '@core/domain/repositories/pet-repository';
+import {
+  PetRepository,
+  QueryFilter,
+} from '@core/domain/repositories/pet-repository';
 import { UniqueID } from '@core/domain/value-objects/unique-id';
 import { PrismaClient } from '@prisma/client';
-
 import { Pet as PrismaPet } from 'prisma/prisma-client';
 
 export class PetPrismaRepository implements PetRepository {
@@ -31,8 +33,10 @@ export class PetPrismaRepository implements PetRepository {
     return pet && createPet(pet);
   }
 
-  async findManyByOrgId(orgId: string) {
-    const pets = await this.prisma.pet.findMany({ where: { orgId } });
+  async findManyByOrgId(orgId: string, queryFilter?: QueryFilter) {
+    const pets = await this.prisma.pet.findMany({
+      where: { orgId, ...queryFilter },
+    });
     return pets.map((pet) => createPet(pet));
   }
 }

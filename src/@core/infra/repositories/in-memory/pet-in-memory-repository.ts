@@ -1,5 +1,8 @@
 import { Pet } from '@core/domain/entities/pet';
-import { PetRepository } from '@core/domain/repositories/pet-repository';
+import {
+  PetRepository,
+  QueryFilter,
+} from '@core/domain/repositories/pet-repository';
 
 export class PetInMemoryRepository implements PetRepository {
   readonly pets: Pet[];
@@ -9,8 +12,28 @@ export class PetInMemoryRepository implements PetRepository {
     return pet;
   }
 
-  async findManyByOrgId(orgId: string) {
-    return this.pets.filter((pet) => pet.orgId === orgId);
+  async findManyByOrgId(orgId: string, query?: QueryFilter) {
+    return this.pets.filter((pet) => {
+      const hasSameId = pet.orgId === orgId;
+
+      const queryValues = [
+        query?.size,
+        query?.energyLevel,
+        query?.spaceRequirement,
+      ];
+
+      const queryResults = [];
+
+      [pet.size, pet.energyLevel, pet.spaceRequirement].forEach(
+        (value, index) => {
+          queryResults.push(
+            queryValues[index] ? value === queryValues[index] : true,
+          );
+        },
+      );
+
+      return hasSameId && queryResults.every((value) => value === true);
+    });
   }
 
   async findById(petId: string) {

@@ -2,11 +2,11 @@ POST http://localhost:3000/org/
 Content-Type: application/json
 
 {
-  "name" : "samuel",
-  "email" : "samuel@gmail.com",
+  "name" : "mikael",
+  "email" : "mikael@gmail.com",
   "password" : "samuel123456",
-  "cep" : "06445140",
-  "phone" : "11944685351"
+  "cep" : "62580970",
+  "phone" : "11944685352"
 }
 
 ###
@@ -32,3 +32,7 @@ Content-Type: application/json
   "spaceRequirement" : "wide",
   "adoptionRequirements" : ["be a nice person", "rich"]
 }
+
+###
+GET http://localhost:3000/pet/search/Barueri
+Content-Type: application/json

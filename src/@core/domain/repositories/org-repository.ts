@@ -5,4 +5,5 @@ export interface OrgRepository {
   findById(orgId: string): Promise<Org | undefined>;
   findByEmail(email: string): Promise<Org | undefined>;
   findByPhone(phone: string): Promise<Org | undefined>;
+  findManyByCity(city: string): Promise<Org[]>;
 }

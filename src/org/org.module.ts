@@ -7,7 +7,6 @@ import { OrgRepository } from '@core/domain/repositories/org-repository';
 import { JoseJwt } from '@core/infra/adapters/jose-jwt';
 import { ViaCepApiAdapter } from '@core/infra/adapters/via-cep-api-adapter';
 import { RegisterOrgPresenter } from '@core/infra/presenters/register-org-presenter';
-import { OrgInMemoryRepository } from '@core/infra/repositories/in-memory/org-in-memory-repository';
 import { OrgPrismaRepository } from '@core/infra/repositories/prisma/org-prisma-repository';
 import { Module } from '@nestjs/common';
 import { OrgController } from './org.controller';
@@ -17,7 +16,6 @@ import { OrgService } from './org.service';
   controllers: [OrgController],
   providers: [
     OrgService,
-    { provide: OrgInMemoryRepository, useClass: OrgInMemoryRepository },
     { provide: RegisterOrgPresenter, useClass: RegisterOrgPresenter },
     { provide: ViaCepApiAdapter, useClass: ViaCepApiAdapter },
     { provide: PrismaService, useClass: PrismaService },

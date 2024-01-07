@@ -24,4 +24,8 @@ export class OrgInMemoryRepository implements OrgRepository {
   async findByPhone(phone: string) {
     return this.orgs.find((o) => o.toObject().contact.phone === phone);
   }
+
+  async findManyByCity(city: string) {
+    return this.orgs.filter((org) => org.toObject().address.city === city);
+  }
 }

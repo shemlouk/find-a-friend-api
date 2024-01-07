@@ -16,7 +16,7 @@ export class RegisterOrgPresenter {
         email: org.contact.email,
         contact: org.contact.phone,
         cep: formatedCep,
-        address: formatedAddress,
+        completeAddress: formatedAddress,
       },
     });
   }
