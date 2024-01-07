@@ -28,11 +28,15 @@ model Pet {
   id                   String  @id @default(uuid())
   name                 String
   description          String
+  category             String
+  age                  String
   size                 String
   energyLevel          String  @map("energy_level")
+  independencyLevel    String  @map("independency_level")
   spaceRequirement     String  @map("space_requirement")
   adoptionRequirements String  @map("adoption_requitements")
   isAdopted            Boolean @map("is_adopted")
+  photoUrl             String  @map("photo_url")
 
   Org   Org    @relation(fields: [orgId], references: [id])
   orgId String
