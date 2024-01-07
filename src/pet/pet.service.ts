@@ -12,7 +12,11 @@ export class PetService {
   ) {}
 
   async register(body: RegisterPetDto) {
-    const registeredPet = await this.registerPet.execute(body);
+    const registeredPet = await this.registerPet.execute({
+      ...body,
+      photoUrl: 'http://google.com',
+    });
+
     return registeredPet;
   }
 

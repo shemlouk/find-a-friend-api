@@ -1,4 +1,4 @@
-import { EnergyLevel, Pet, Size, SpaceRequirement } from '../entities/pet';
+import { Pet, PetEnums } from '../entities/pet';
 
 export interface PetRepository {
   create(pet: Pet): Promise<Pet>;
@@ -7,7 +7,10 @@ export interface PetRepository {
 }
 
 export type QueryFilter = Partial<{
-  size: Size;
-  energyLevel: EnergyLevel;
-  spaceRequirement: SpaceRequirement;
+  age: PetEnums.Age;
+  size: PetEnums.Size;
+  category: PetEnums.Category;
+  energyLevel: PetEnums.EnergyLevel;
+  independencyLevel: PetEnums.IndependencyLevel;
+  spaceRequirement: PetEnums.SpaceRequirement;
 }>;

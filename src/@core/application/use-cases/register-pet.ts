@@ -1,9 +1,4 @@
-import {
-  EnergyLevel,
-  Pet,
-  Size,
-  SpaceRequirement,
-} from '@core/domain/entities/pet';
+import { Pet, PetEnums } from '@core/domain/entities/pet';
 import { OrgRepository } from '@core/domain/repositories/org-repository';
 import { PetRepository } from '@core/domain/repositories/pet-repository';
 import { UniqueID } from '@core/domain/value-objects/unique-id';
@@ -22,8 +17,9 @@ export class RegisterPet {
     const pet = new Pet({
       ...input,
       orgId: new UniqueID(org.id),
-      isAdopted: input.isAdopted ?? false,
+      isAdopted: false,
     });
+
     await this.petRepository.create(pet);
 
     return Object.freeze({
@@ -37,24 +33,30 @@ interface InputBoundary {
   orgId: string;
   name: string;
   description: string;
-  size: Size;
-  energyLevel: EnergyLevel;
-  spaceRequirement: SpaceRequirement;
+  age: PetEnums.Age;
+  size: PetEnums.Size;
+  category: PetEnums.Category;
+  energyLevel: PetEnums.EnergyLevel;
+  independencyLevel: PetEnums.IndependencyLevel;
+  spaceRequirement: PetEnums.SpaceRequirement;
   adoptionRequirements: string[];
-  isAdopted?: boolean;
+  photoUrl: string;
 }
 
 export interface OutputBoundary {
   pet: {
-    id: string;
     orgId: string;
     name: string;
     description: string;
-    size: Size;
-    energyLevel: EnergyLevel;
-    spaceRequirement: SpaceRequirement;
-    isAdopted: boolean;
+    age: PetEnums.Age;
+    size: PetEnums.Size;
+    category: PetEnums.Category;
+    energyLevel: PetEnums.EnergyLevel;
+    independencyLevel: PetEnums.IndependencyLevel;
+    spaceRequirement: PetEnums.SpaceRequirement;
     adoptionRequirements: string[];
+    photoUrl: string;
+    isAdopted: boolean;
   };
   org: {
     id: string;

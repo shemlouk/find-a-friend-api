@@ -8,35 +8,42 @@ export class Pet extends Entity {
   private _petInfo: {
     name: string;
     description: string;
-    size: Size;
-    energyLevel: EnergyLevel;
-    spaceRequirement: SpaceRequirement;
-    isAdopted: boolean;
+    age: PetEnums.Age;
+    size: PetEnums.Size;
+    category: PetEnums.Category;
+    energyLevel: PetEnums.EnergyLevel;
+    independencyLevel: PetEnums.IndependencyLevel;
+    spaceRequirement: PetEnums.SpaceRequirement;
   };
 
+  private _photoUrl: URL;
+  private _isAdopted: boolean;
   private _adoptionRequirements: Set<string>;
 
   constructor(props: PetProps, id?: string) {
     super(id);
 
-    const { orgId, adoptionRequirements, ...petInfo } = props;
+    const { orgId, photoUrl, isAdopted, adoptionRequirements, ...petInfo } =
+      props;
 
-    const validValues = [
-      ...Object.values(Size),
-      ...Object.values(EnergyLevel),
-      ...Object.values(SpaceRequirement),
-    ];
+    const validationResults = [];
 
-    for (const value of [
-      petInfo.size,
-      petInfo.energyLevel,
-      petInfo.spaceRequirement,
-    ]) {
-      if (!validValues.includes(value)) throw new InvalidFormatError(value);
+    Object.keys(PetEnums).forEach((key) => {
+      const petInfoKey = key.charAt(0).toLowerCase() + key.slice(1);
+      const petInfoValue = petInfo[petInfoKey];
+
+      const validValues = Object.values(PetEnums[key]);
+      validationResults.push(validValues.includes(petInfoValue));
+    });
+
+    if (validationResults.find((value) => value !== true)) {
+      throw new InvalidFormatError('Pet Info');
     }
 
     this._orgId = orgId;
     this._petInfo = petInfo;
+    this._isAdopted = isAdopted;
+    this._photoUrl = new URL(photoUrl);
     this._adoptionRequirements = new Set(adoptionRequirements);
   }
 
@@ -45,6 +52,8 @@ export class Pet extends Entity {
       id: this.id,
       orgId: this.orgId,
       ...this._petInfo,
+      photoUrl: this.photoUrl,
+      isAdopted: this.isAdopted,
       adoptionRequirements: Array.from(this._adoptionRequirements),
     });
   }
@@ -61,12 +70,24 @@ export class Pet extends Entity {
     return this._petInfo.description;
   }
 
+  get age() {
+    return this._petInfo.age;
+  }
+
   get size() {
     return this._petInfo.size;
   }
 
+  get category() {
+    return this._petInfo.category;
+  }
+
   get energyLevel() {
     return this._petInfo.energyLevel;
+  }
+
+  get independencyLevel() {
+    return this._petInfo.independencyLevel;
   }
 
   get spaceRequirement() {
@@ -74,7 +95,11 @@ export class Pet extends Entity {
   }
 
   get isAdopted() {
-    return this._petInfo.isAdopted;
+    return this._isAdopted;
+  }
+
+  get photoUrl() {
+    return this._photoUrl.href;
   }
 
   get adoptionRequirements() {
@@ -89,20 +114,28 @@ export class Pet extends Entity {
     this._petInfo.description = value;
   }
 
-  set size(value: Size) {
+  set age(value: PetEnums.Age) {
+    this._petInfo.age = value;
+  }
+
+  set size(value: PetEnums.Size) {
     this._petInfo.size = value;
   }
 
-  set energyLevel(value: EnergyLevel) {
+  set energyLevel(value: PetEnums.EnergyLevel) {
     this._petInfo.energyLevel = value;
   }
 
-  set spaceRequirement(value: SpaceRequirement) {
+  set independencyLevel(value: PetEnums.IndependencyLevel) {
+    this._petInfo.independencyLevel = value;
+  }
+
+  set spaceRequirement(value: PetEnums.SpaceRequirement) {
     this._petInfo.spaceRequirement = value;
   }
 
   set isAdopted(value: boolean) {
-    this._petInfo.isAdopted = value;
+    this._isAdopted = value;
   }
 }
 
@@ -110,28 +143,52 @@ interface PetProps {
   orgId: UniqueID;
   name: string;
   description: string;
-  size: Size;
-  energyLevel: EnergyLevel;
-  spaceRequirement: SpaceRequirement;
-  adoptionRequirements: string[];
+  age: PetEnums.Age;
+  size: PetEnums.Size;
+  category: PetEnums.Category;
+  energyLevel: PetEnums.EnergyLevel;
+  independencyLevel: PetEnums.IndependencyLevel;
+  spaceRequirement: PetEnums.SpaceRequirement;
+  photoUrl: string;
   isAdopted: boolean;
+  adoptionRequirements: string[];
 }
 
-export enum Size {
-  Small = 'small',
-  Average = 'average',
-  Big = 'big',
-}
+export namespace PetEnums {
+  export enum Category {
+    Cat = 'cat',
+    Dog = 'dog',
+  }
 
-export enum EnergyLevel {
-  Lower = 'lower',
-  Low = 'low',
-  Average = 'average',
-  High = 'high',
-  Higher = 'higher',
-}
+  export enum Age {
+    Baby = 'baby',
+    Young = 'young',
+    Adult = 'adult',
+    Senior = 'senior',
+  }
 
-export enum SpaceRequirement {
-  Narrow = 'narrow',
-  Wide = 'wide',
+  export enum Size {
+    Small = 'small',
+    Average = 'average',
+    Big = 'big',
+  }
+
+  export enum EnergyLevel {
+    Lower = 'lower',
+    Low = 'low',
+    Average = 'average',
+    High = 'high',
+    Higher = 'higher',
+  }
+
+  export enum IndependencyLevel {
+    Small = 'small',
+    Average = 'average',
+    High = 'high',
+  }
+
+  export enum SpaceRequirement {
+    Narrow = 'narrow',
+    Wide = 'wide',
+  }
 }

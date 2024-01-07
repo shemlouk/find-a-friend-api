@@ -1,4 +1,4 @@
-import { EnergyLevel, Size, SpaceRequirement } from '@core/domain/entities/pet';
+import { PetEnums } from '@core/domain/entities/pet';
 import { OrgRepository } from '@core/domain/repositories/org-repository';
 import {
   PetRepository,
@@ -54,14 +54,17 @@ type PetsByOrg = {
     completeAddress: string;
   };
   pets: {
-    id: string;
     orgId: string;
     name: string;
     description: string;
-    size: Size;
-    energyLevel: EnergyLevel;
-    spaceRequirement: SpaceRequirement;
-    isAdopted: boolean;
+    age: PetEnums.Age;
+    size: PetEnums.Size;
+    category: PetEnums.Category;
+    energyLevel: PetEnums.EnergyLevel;
+    independencyLevel: PetEnums.IndependencyLevel;
+    spaceRequirement: PetEnums.SpaceRequirement;
     adoptionRequirements: string[];
+    photoUrl: string;
+    isAdopted: boolean;
   }[];
 }[];

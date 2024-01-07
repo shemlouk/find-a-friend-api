@@ -1,9 +1,4 @@
-import {
-  EnergyLevel,
-  Pet,
-  Size,
-  SpaceRequirement,
-} from '@core/domain/entities/pet';
+import { Pet, PetEnums } from '@core/domain/entities/pet';
 import {
   PetRepository,
   QueryFilter,
@@ -46,9 +41,12 @@ function createPet(pet: PrismaPet) {
     {
       ...pet,
       orgId: new UniqueID(pet.orgId),
-      size: pet.size as Size,
-      energyLevel: pet.energyLevel as EnergyLevel,
-      spaceRequirement: pet.spaceRequirement as SpaceRequirement,
+      age: pet.age as PetEnums.Age,
+      size: pet.size as PetEnums.Size,
+      category: pet.category as PetEnums.Category,
+      energyLevel: pet.energyLevel as PetEnums.EnergyLevel,
+      independencyLevel: pet.independencyLevel as PetEnums.IndependencyLevel,
+      spaceRequirement: pet.spaceRequirement as PetEnums.SpaceRequirement,
       adoptionRequirements: pet.adoptionRequirements.split(', '),
     },
     pet.id,

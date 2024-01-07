@@ -1,16 +1,28 @@
-import { EnergyLevel, Size, SpaceRequirement } from '@core/domain/entities/pet';
+import { PetEnums } from '@core/domain/entities/pet';
 import { IsEnum, IsOptional } from 'class-validator';
 
 export class GetPetsByCityQueryDto {
   @IsOptional()
-  @IsEnum(Size)
-  size: Size;
+  @IsEnum(PetEnums.Age)
+  age: PetEnums.Age;
 
   @IsOptional()
-  @IsEnum(EnergyLevel)
-  energyLevel: EnergyLevel;
+  @IsEnum(PetEnums.Size)
+  size: PetEnums.Size;
 
   @IsOptional()
-  @IsEnum(SpaceRequirement)
-  spaceRequirement: SpaceRequirement;
+  @IsEnum(PetEnums.Category)
+  category: PetEnums.Category;
+
+  @IsOptional()
+  @IsEnum(PetEnums.EnergyLevel)
+  energyLevel: PetEnums.EnergyLevel;
+
+  @IsOptional()
+  @IsEnum(PetEnums.IndependencyLevel)
+  independencyLevel: PetEnums.IndependencyLevel;
+
+  @IsOptional()
+  @IsEnum(PetEnums.SpaceRequirement)
+  spaceRequirement: PetEnums.SpaceRequirement;
 }

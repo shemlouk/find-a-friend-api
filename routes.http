@@ -27,12 +27,15 @@ Content-Type: application/json
   "orgId" : "1282cb25-e8f0-4cfc-9448-43f91f35c7bd",
   "name" : "doguinho",
   "description" : "come muito",
+  "age" : "adult",
   "size" : "big",
+  "category" : "dog",
   "energyLevel" : "high",
+  "independencyLevel" : "small",
   "spaceRequirement" : "wide",
   "adoptionRequirements" : ["be a nice person", "rich"]
 }
 
 ###
-GET http://localhost:3000/pet/search/Barueri
+GET http://localhost:3000/pet/search/Barueri?energyLevel=high&size=small
 Content-Type: application/json

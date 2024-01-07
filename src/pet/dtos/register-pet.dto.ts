@@ -1,4 +1,4 @@
-import { EnergyLevel, Size, SpaceRequirement } from '@core/domain/entities/pet';
+import { PetEnums } from '@core/domain/entities/pet';
 import {
   IsArray,
   IsEnum,
@@ -18,14 +18,23 @@ export class RegisterPetDto {
   @IsNotEmpty()
   description: string;
 
-  @IsEnum(Size)
-  size: Size;
+  @IsEnum(PetEnums.Age)
+  age: PetEnums.Age;
 
-  @IsEnum(EnergyLevel)
-  energyLevel: EnergyLevel;
+  @IsEnum(PetEnums.Size)
+  size: PetEnums.Size;
 
-  @IsEnum(SpaceRequirement)
-  spaceRequirement: SpaceRequirement;
+  @IsEnum(PetEnums.Category)
+  category: PetEnums.Category;
+
+  @IsEnum(PetEnums.EnergyLevel)
+  energyLevel: PetEnums.EnergyLevel;
+
+  @IsEnum(PetEnums.IndependencyLevel)
+  independencyLevel: PetEnums.IndependencyLevel;
+
+  @IsEnum(PetEnums.SpaceRequirement)
+  spaceRequirement: PetEnums.SpaceRequirement;
 
   @IsArray()
   @IsString({ each: true })
