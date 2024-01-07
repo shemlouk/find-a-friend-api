@@ -73,6 +73,10 @@ export class Pet extends Entity {
     return this._petInfo.spaceRequirement;
   }
 
+  get isAdopted() {
+    return this._petInfo.isAdopted;
+  }
+
   get adoptionRequirements() {
     return this._adoptionRequirements;
   }
@@ -95,6 +99,10 @@ export class Pet extends Entity {
 
   set spaceRequirement(value: SpaceRequirement) {
     this._petInfo.spaceRequirement = value;
+  }
+
+  set isAdopted(value: boolean) {
+    this._petInfo.isAdopted = value;
   }
 }
 
