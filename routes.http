@@ -11,10 +11,24 @@ Content-Type: application/json
 
 ###
 
-POST http://localhost:3000/org/authenticate
+POST http://localhost:3000/org/authenticate/
 Content-Type: application/json
 
 {
   "email" : "samuel@gmail.com",
   "password" : "samuel123456"
+}
+
+###
+POST http://localhost:3000/pet/
+Content-Type: application/json
+
+{
+  "orgId" : "1282cb25-e8f0-4cfc-9448-43f91f35c7bd",
+  "name" : "doguinho",
+  "description" : "come muito",
+  "size" : "big",
+  "energyLevel" : "high",
+  "spaceRequirement" : "wide",
+  "adoptionRequirements" : ["be a nice person", "rich"]
 }

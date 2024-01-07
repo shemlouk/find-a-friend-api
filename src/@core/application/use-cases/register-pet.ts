@@ -19,7 +19,11 @@ export class RegisterPet {
     const org = await this.orgRepository.findById(input.orgId);
     if (!org) throw new NotFoundError('Org');
 
-    const pet = new Pet({ ...input, orgId: new UniqueID(org.id) });
+    const pet = new Pet({
+      ...input,
+      orgId: new UniqueID(org.id),
+      isAdopted: input.isAdopted ?? false,
+    });
     await this.petRepository.create(pet);
 
     return Object.freeze({
@@ -37,7 +41,7 @@ interface InputBoundary {
   energyLevel: EnergyLevel;
   spaceRequirement: SpaceRequirement;
   adoptionRequirements: string[];
-  isAdopted: boolean;
+  isAdopted?: boolean;
 }
 
 export interface OutputBoundary {

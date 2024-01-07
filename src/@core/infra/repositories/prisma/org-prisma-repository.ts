@@ -22,15 +22,28 @@ export class OrgPrismaRepository implements OrgRepository {
     return org;
   }
 
+  async findById(orgId: string) {
+    const data = await this.prisma.org.findUnique({ where: { id: orgId } });
+
+    return (
+      data &&
+      new Org(
+        { ...data, phone: data.phoneNumber, password: data.hashedPassword },
+        data.id,
+      )
+    );
+  }
+
   async findByEmail(email: string) {
     const data = await this.prisma.org.findUnique({ where: { email } });
 
-    return data
-      ? new Org(
-          { ...data, phone: data.phoneNumber, password: data.hashedPassword },
-          data.id,
-        )
-      : undefined;
+    return (
+      data &&
+      new Org(
+        { ...data, phone: data.phoneNumber, password: data.hashedPassword },
+        data.id,
+      )
+    );
   }
 
   async findByPhone(phone: string) {
@@ -38,11 +51,12 @@ export class OrgPrismaRepository implements OrgRepository {
       where: { phoneNumber: phone },
     });
 
-    return data
-      ? new Org(
-          { ...data, phone: data.phoneNumber, password: data.hashedPassword },
-          data.id,
-        )
-      : undefined;
+    return (
+      data &&
+      new Org(
+        { ...data, phone: data.phoneNumber, password: data.hashedPassword },
+        data.id,
+      )
+    );
   }
 }
